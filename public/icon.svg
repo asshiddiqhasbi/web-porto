@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Background Container -->
+  <rect width="32" height="32" rx="7" fill="#0A0E14"/>
+  <!-- Border Frame -->
+  <rect x="1" y="1" width="30" height="30" rx="6" fill="none" stroke="#5EEAD4" stroke-width="1.5" stroke-opacity="0.4"/>
+  <!-- System Signal Dot -->
+  <circle cx="8.5" cy="8.5" r="1.75" fill="#5EEAD4"/>
+  <!-- Monogram Initials "H" -->
+  <path d="M9 13.5V21.5M9 17.5H15M15 13.5V21.5" stroke="#E8EAED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Terminal Prompt " > " -->
+  <path d="M18.5 15L21.5 17.5L18.5 20" stroke="#5EEAD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
