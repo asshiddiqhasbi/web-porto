@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Project } from "@/data/content";
 
@@ -115,8 +116,23 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
         }}
       >
         <div>
+          {/* Top Screenshot / Image (if available) */}
+          {project.image && (
+            <div className="relative mb-5 w-full aspect-[16/9] overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] group/img">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                quality={92}
+                className="object-cover object-top transition-transform duration-500 ease-out group-hover/img:scale-105 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)]/30 via-transparent to-transparent pointer-events-none" />
+            </div>
+          )}
+
           {/* Status Badge */}
-          <div className="mb-5 flex items-center justify-between">
+          <div className="mb-4 flex items-center justify-between">
             <span
               className="font-mono inline-flex items-center rounded-full px-3 py-1 text-xs font-medium border tracking-wide"
               style={{
@@ -167,16 +183,72 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
             ))}
           </div>
 
-          {/* View Code Link / Footer */}
+          {/* Action Links / Footer */}
           <div
             className="pt-4 border-t"
             style={{ borderColor: "var(--border-subtle)" }}
           >
-            {project.link ? (
+            {project.liveUrl && project.link ? (
+              /* Dual Action Links: Live Demo & View Code */
+              <div className="flex items-center justify-between gap-3">
+                <Link
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="font-mono text-xs font-semibold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 border border-[var(--accent-primary)] bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] hover:bg-[var(--accent-primary)] hover:text-[#0A0E14] transition-all duration-200 shadow-sm"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
+                  <span>Live Demo</span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 3h7v7M3 13l7-7"
+                      stroke="currentColor"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+
+                <Link
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="font-mono text-xs font-medium inline-flex items-center gap-1 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors py-1"
+                >
+                  <span>View Code</span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 3h7v7M3 13l7-7"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            ) : project.link ? (
+              /* Single View Code Link */
               <Link
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="font-mono text-sm font-medium inline-flex items-center group/link transition-colors"
                 style={{ color: "var(--accent-primary)" }}
               >
@@ -199,6 +271,7 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
                 </svg>
               </Link>
             ) : (
+              /* Disabled / Coming Soon */
               <span
                 className="font-mono text-sm inline-flex items-center justify-between w-full cursor-not-allowed select-none"
                 style={{ color: "var(--text-tertiary)" }}

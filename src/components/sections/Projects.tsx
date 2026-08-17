@@ -39,13 +39,10 @@ export default function Projects() {
           Projects
         </motion.h2>
 
-        {/* Grid of Project Cards */}
-        <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {/* Grid of Project Cards (Clean, equal-width 3-column grid) */}
+        <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {projects.map((project, index) => (
-            <div
-              key={project.title}
-              className={index === 0 ? "md:col-span-2 lg:col-span-1" : "md:col-span-1"}
-            >
+            <div key={project.title} className="col-span-1">
               <ProjectCard
                 project={project}
                 index={index}

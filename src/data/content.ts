@@ -22,6 +22,8 @@ export interface Project {
   badge: string;
   description: string;
   link: string;
+  liveUrl?: string;
+  image?: string;
 }
 
 export interface Skill {
@@ -90,12 +92,14 @@ export const content: PortfolioContent = {
 
   projects: [
     {
-      title: "Smart Expired Food Tracker",
-      tags: ["Laravel", "PHP", "MySQL"],
+      title: "Tapak",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Supabase"],
       badge: "Full-Stack · Featured",
       description:
-        "A tracking system that helps households and small businesses monitor food expiry, cutting waste through automated alerts and reporting.",
-      link: "",
+        "A personal web app for tracking anime, series, and film progress, log episodes, status, personal ratings, and notes all in one place.",
+      link: "https://github.com/asshiddiqhasbi/tapak",
+      liveUrl: "https://tapak-seven.vercel.app",
+      image: "/tapak-dashboard.png",
     },
     {
       title: "AI Concept Showcase",
