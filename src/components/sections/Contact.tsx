@@ -113,12 +113,12 @@ export default function Contact() {
   ].filter(Boolean);
 
   return (
-    <section id="contact" className="flex flex-col items-center px-6 py-24 sm:py-28 sm:px-8 text-center">
+    <section id="contact" className="flex flex-col items-center px-6 py-16 sm:py-20 sm:px-8 text-center">
       <div className="flex w-full max-w-[1100px] flex-col items-center">
         {/* Eyebrow Label */}
         <motion.p
           {...fadeInUp(0)}
-          className="eyebrow mb-6"
+          className="eyebrow mb-4 sm:mb-5"
         >
           $ ./connect.sh
         </motion.p>
@@ -126,7 +126,7 @@ export default function Contact() {
         {/* Prominent Closing Heading */}
         <motion.h2
           {...fadeInUp(0.1)}
-          className="font-display mb-6 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1]"
+          className="font-display mb-5 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1]"
           style={{ color: "var(--text-primary)" }}
         >
           Let's build something.
@@ -135,7 +135,7 @@ export default function Contact() {
         {/* Supporting Line */}
         <motion.p
           {...fadeInUp(0.2)}
-          className="font-body mb-12 sm:mb-14 max-w-lg text-lg sm:text-xl leading-relaxed"
+          className="font-body mb-10 sm:mb-12 max-w-lg text-lg sm:text-xl leading-relaxed"
           style={{ color: "var(--text-secondary)" }}
         >
           Open to conversations on AI & software.
@@ -162,26 +162,22 @@ export default function Contact() {
                   href={item.href}
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noopener noreferrer" : undefined}
-                  className={`group relative flex items-center justify-between sm:justify-start gap-4 rounded-xl border px-6 py-4 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
-                    isActive
-                      ? "border-[var(--accent-primary)] bg-[var(--bg-elevated)] shadow-[0_0_30px_rgba(94,234,212,0.25)]"
-                      : "border-[var(--border-subtle)] bg-[var(--bg-secondary)] hover:border-[var(--accent-primary)] hover:bg-[var(--bg-elevated)] hover:shadow-[0_0_30px_rgba(94,234,212,0.22)]"
-                  }`}
+                  className="group relative flex items-center justify-between sm:justify-start gap-4 rounded-xl border px-6 py-4 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                   style={{
                     backgroundColor: isActive ? "var(--bg-elevated)" : "var(--bg-secondary)",
                     borderColor: isActive ? "var(--accent-primary)" : "var(--border-subtle)",
-                    boxShadow: isActive ? "0 0 30px rgba(94, 234, 212, 0.25)" : undefined,
+                    boxShadow: isActive ? "var(--card-shadow-active)" : "var(--card-shadow)",
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
                       e.currentTarget.style.borderColor = "var(--accent-primary)";
-                      e.currentTarget.style.boxShadow = "0 0 25px rgba(94, 234, 212, 0.22)";
+                      e.currentTarget.style.boxShadow = "var(--card-shadow-hover)";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
                       e.currentTarget.style.borderColor = "var(--border-subtle)";
-                      e.currentTarget.style.boxShadow = "none";
+                      e.currentTarget.style.boxShadow = "var(--card-shadow)";
                     }
                   }}
                 >

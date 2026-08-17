@@ -4,6 +4,7 @@ import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
+import { useTheme } from "@/context/ThemeContext";
 
 function ParticleField() {
   const groupRef = useRef<THREE.Group>(null);
@@ -105,24 +106,27 @@ function ParticleField() {
     }
   });
 
+  const { theme } = useTheme();
+  const activeColor = theme === "light" ? "#0F766E" : "#5EEAD4";
+
   return (
     <group ref={groupRef}>
       <Points positions={particles.positions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#5EEAD4"
-          size={0.08}
+          color={activeColor}
+          size={theme === "light" ? 0.09 : 0.08}
           sizeAttenuation={true}
           depthWrite={false}
-          opacity={0.5}
+          opacity={theme === "light" ? 0.85 : 0.5}
         />
       </Points>
 
       <lineSegments ref={lineRef} geometry={lineGeometry}>
         <lineBasicMaterial
-          color="#5EEAD4"
+          color={activeColor}
           transparent
-          opacity={0.15}
+          opacity={theme === "light" ? 0.35 : 0.15}
           linewidth={1}
         />
       </lineSegments>

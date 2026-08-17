@@ -77,6 +77,13 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
 
   const badgeStyle = getBadgeStyles(project.badge);
 
+  const handleCardMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    handleMouseLeave();
+    if (!isActive) {
+      e.currentTarget.style.boxShadow = "var(--card-shadow)";
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -89,7 +96,7 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
       <motion.div
         ref={cardRef}
         onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseLeave={handleCardMouseLeave}
         onClick={onToggle}
         style={{
           rotateX,
@@ -97,18 +104,15 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
           transformStyle: "preserve-3d",
           backgroundColor: isActive ? "var(--bg-elevated)" : "var(--bg-secondary)",
           borderColor: isActive ? "var(--accent-primary)" : "var(--border-subtle)",
-          boxShadow: isActive
-            ? "0 0 30px rgba(94, 234, 212, 0.22), inset 0 1px 0 rgba(94, 234, 212, 0.5)"
-            : undefined,
+          boxShadow: isActive ? "var(--card-shadow-active)" : "var(--card-shadow)",
         }}
         whileHover={{ translateY: -6, scale: 1.015 }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 350, damping: 25 }}
-        className={`group relative flex h-full flex-col justify-between rounded-xl sm:rounded-[14px] border p-6 sm:p-7 transition-all duration-300 cursor-pointer select-none ${
-          isActive
-            ? "border-[var(--accent-primary)] bg-[var(--bg-elevated)] shadow-[0_0_30px_rgba(94,234,212,0.22),_inset_0_1px_0_rgba(94,234,212,0.5)]"
-            : "hover:border-[var(--accent-primary)] hover:bg-[var(--bg-elevated)] hover:shadow-[0_0_30px_rgba(94,234,212,0.22),_inset_0_1px_0_rgba(94,234,212,0.4)]"
-        }`}
+        className="group relative flex h-full flex-col justify-between rounded-xl sm:rounded-[14px] border p-6 sm:p-7 transition-all duration-300 cursor-pointer select-none"
+        onMouseEnter={(e) => {
+          if (!isActive) e.currentTarget.style.boxShadow = "var(--card-shadow-hover)";
+        }}
       >
         <div>
           {/* Status Badge */}
@@ -166,7 +170,7 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
           {/* View Code Link / Footer */}
           <div
             className="pt-4 border-t"
-            style={{ borderColor: "rgba(31, 41, 55, 0.6)" }}
+            style={{ borderColor: "var(--border-subtle)" }}
           >
             {project.link ? (
               <Link
@@ -222,7 +226,7 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
                   className="text-[10px] px-2 py-0.5 rounded border uppercase tracking-wider font-semibold"
                   style={{
                     borderColor: "var(--border-subtle)",
-                    backgroundColor: "rgba(22, 28, 41, 0.6)",
+                    backgroundColor: "var(--bg-elevated)",
                     color: "var(--text-tertiary)",
                   }}
                 >

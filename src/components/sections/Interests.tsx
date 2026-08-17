@@ -19,27 +19,27 @@ export default function Interests() {
   const [activeInterestIndex, setActiveInterestIndex] = useState<number | null>(null);
 
   return (
-    <section id="interests" className="flex flex-col items-center px-6 py-20 sm:py-24 sm:px-8">
+    <section id="interests" className="flex flex-col items-center px-6 py-16 sm:py-20 sm:px-8">
       <div className="flex w-full max-w-[1100px] flex-col">
         {/* Eyebrow Label */}
         <motion.p
           {...fadeInUp(0)}
-          className="eyebrow mb-4"
+          className="eyebrow mb-3 sm:mb-4"
         >
-          $ cat interests.log
+          $ grep -i "passions" ./profile
         </motion.p>
 
         {/* Section Heading */}
         <motion.h2
           {...fadeInUp(0.1)}
-          className="font-display mb-12 sm:mb-16 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
+          className="font-display mb-10 sm:mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
           style={{ color: "var(--text-primary)" }}
         >
           Interests
         </motion.h2>
 
         {/* Editorial Grid of Interest Items */}
-        <div className="grid w-full grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 lg:gap-y-12">
+        <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:gap-8">
           {interests.map((interest, index) => {
             const numStr = String(index + 1).padStart(2, "0");
             const isActive = activeInterestIndex === index;
@@ -53,9 +53,20 @@ export default function Interests() {
                 onClick={() => setActiveInterestIndex(prev => prev === index ? null : index)}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: index * 0.09, ease }}
-                className={`group relative flex flex-col justify-between rounded-lg p-5 -mx-5 transition-colors duration-300 cursor-pointer select-none ${
-                  isActive ? "bg-[var(--bg-secondary)]/70" : "hover:bg-[var(--bg-secondary)]/50"
+                className={`group relative flex flex-col justify-between rounded-xl p-5 -mx-5 border transition-all duration-300 cursor-pointer select-none ${
+                  isActive
+                    ? "border-[var(--accent-primary)] bg-[var(--bg-secondary)]"
+                    : "border-transparent bg-transparent hover:border-[var(--border-accent)] hover:bg-[var(--bg-secondary)]"
                 }`}
+                style={{
+                  boxShadow: isActive ? "var(--card-shadow-active)" : undefined,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) e.currentTarget.style.boxShadow = "var(--card-shadow-hover)";
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) e.currentTarget.style.boxShadow = "none";
+                }}
               >
                 <div>
                   {/* Index Number & Header Line */}

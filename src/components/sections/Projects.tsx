@@ -20,12 +20,12 @@ export default function Projects() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="flex flex-col items-center px-6 py-20 sm:py-24 sm:px-8">
+    <section id="projects" className="flex flex-col items-center px-6 py-16 sm:py-20 sm:px-8">
       <div className="flex w-full max-w-[1100px] flex-col">
         {/* Eyebrow Label */}
         <motion.p
           {...fadeInUp(0)}
-          className="eyebrow mb-4"
+          className="eyebrow mb-3 sm:mb-4"
         >
           $ ls ./projects
         </motion.p>
@@ -33,7 +33,7 @@ export default function Projects() {
         {/* Section Heading */}
         <motion.h2
           {...fadeInUp(0.1)}
-          className="font-display mb-12 sm:mb-16 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
+          className="font-display mb-10 sm:mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
           style={{ color: "var(--text-primary)" }}
         >
           Projects

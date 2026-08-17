@@ -37,12 +37,12 @@ export default function Skills() {
   const [activeSkillName, setActiveSkillName] = useState<string | null>(null);
 
   return (
-    <section id="skills" className="flex flex-col items-center px-6 py-20 sm:py-24 sm:px-8">
+    <section id="skills" className="flex flex-col items-center px-6 py-16 sm:py-20 sm:px-8">
       <div className="flex w-full max-w-[1100px] flex-col">
         {/* Eyebrow Header */}
         <motion.p
           {...fadeInUp(0)}
-          className="eyebrow mb-4"
+          className="eyebrow mb-3 sm:mb-4"
         >
           $ cat skills.json
         </motion.p>
@@ -50,7 +50,7 @@ export default function Skills() {
         {/* Main Section Heading */}
         <motion.h2
           {...fadeInUp(0.1)}
-          className="font-display mb-12 sm:mb-16 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
+          className="font-display mb-10 sm:mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
           style={{ color: "var(--text-primary)" }}
         >
           Skills & Tools
@@ -69,6 +69,7 @@ export default function Skills() {
               style={{
                 backgroundColor: "var(--bg-secondary)",
                 borderColor: "var(--border-subtle)",
+                boxShadow: "var(--card-shadow)",
               }}
             >
               {/* Category Module Header */}

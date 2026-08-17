@@ -74,16 +74,38 @@ export const metadata: Metadata = {
 };
 
 import CustomCursor from "@/components/ui/CustomCursor";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
-        <CustomCursor />
-        {children}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem("theme");
+                  var theme = saved ? saved : "dark";
+                  document.documentElement.setAttribute("data-theme", theme);
+                } catch (e) {
+                  document.documentElement.setAttribute("data-theme", "dark");
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col relative">
+        <ThemeProvider>
+          <div className="page-vignette" aria-hidden="true" />
+          <CustomCursor />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

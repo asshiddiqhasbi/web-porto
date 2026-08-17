@@ -33,18 +33,18 @@ export default function About() {
   const [activeDetailIndex, setActiveDetailIndex] = useState<number | null>(null);
 
   return (
-    <section id="about" className="flex flex-col items-center px-6 py-20 sm:py-24 sm:px-8">
+    <section id="about" className="flex flex-col items-center px-6 py-16 sm:py-20 sm:px-8">
       <div className="flex w-full max-w-[1100px] flex-col">
         <motion.p
           {...fadeInUp(0)}
-          className="eyebrow mb-4"
+          className="eyebrow mb-3 sm:mb-4"
         >
           $ cat about.md
         </motion.p>
 
         <motion.h2
           {...fadeInUp(0.1)}
-          className="font-display mb-12 sm:mb-16 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
+          className="font-display mb-10 sm:mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
           style={{ color: "var(--text-primary)" }}
         >
           About Me
@@ -70,10 +70,11 @@ export default function About() {
             className="flex flex-col"
           >
             <div
-              className="rounded-lg border p-6"
+              className="rounded-lg border p-6 transition-all duration-300"
               style={{
                 backgroundColor: "var(--bg-secondary)",
                 borderColor: "var(--border-subtle)",
+                boxShadow: "var(--card-shadow)",
               }}
             >
               {/* Panel Header */}

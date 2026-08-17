@@ -47,32 +47,32 @@ export default function Hero() {
           <div
             className={`relative flex items-center justify-center p-1 rounded-full border transition-all duration-500 ${
               isPhotoActive
-                ? "border-[var(--accent-primary)] shadow-[0_0_25px_rgba(94,234,212,0.35)]"
-                : "border-[rgba(94,234,212,0.35)] group-hover:border-[var(--accent-primary)] shadow-[0_0_15px_rgba(94,234,212,0.18)] group-hover:shadow-[0_0_25px_rgba(94,234,212,0.35)]"
+                ? "border-[var(--accent-primary)] shadow-[0_0_25px_var(--glow-shadow-intense)]"
+                : "border-[var(--border-accent)] group-hover:border-[var(--accent-primary)] shadow-[0_0_15px_var(--glow-shadow)] group-hover:shadow-[0_0_25px_var(--glow-shadow-intense)]"
             }`}
             style={{
-              backgroundColor: "rgba(16, 21, 31, 0.6)",
+              backgroundColor: "var(--bg-secondary)",
             }}
           >
             {/* Tech Reticle Viewfinder Corner Accents */}
             <span
               className={`absolute -top-0.5 -left-0.5 h-2 w-2 border-t-2 border-l-2 rounded-tl-[2px] transition-colors duration-300 ${
-                isPhotoActive ? "border-[var(--accent-primary)]" : "border-[rgba(94,234,212,0.5)] group-hover:border-[var(--accent-primary)]"
+                isPhotoActive ? "border-[var(--accent-primary)]" : "border-[var(--border-accent)] group-hover:border-[var(--accent-primary)]"
               }`}
             />
             <span
               className={`absolute -top-0.5 -right-0.5 h-2 w-2 border-t-2 border-r-2 rounded-tr-[2px] transition-colors duration-300 ${
-                isPhotoActive ? "border-[var(--accent-primary)]" : "border-[rgba(94,234,212,0.5)] group-hover:border-[var(--accent-primary)]"
+                isPhotoActive ? "border-[var(--accent-primary)]" : "border-[var(--border-accent)] group-hover:border-[var(--accent-primary)]"
               }`}
             />
             <span
               className={`absolute -bottom-0.5 -left-0.5 h-2 w-2 border-b-2 border-l-2 rounded-bl-[2px] transition-colors duration-300 ${
-                isPhotoActive ? "border-[var(--accent-primary)]" : "border-[rgba(94,234,212,0.5)] group-hover:border-[var(--accent-primary)]"
+                isPhotoActive ? "border-[var(--accent-primary)]" : "border-[var(--border-accent)] group-hover:border-[var(--accent-primary)]"
               }`}
             />
             <span
               className={`absolute -bottom-0.5 -right-0.5 h-2 w-2 border-b-2 border-r-2 rounded-br-[2px] transition-colors duration-300 ${
-                isPhotoActive ? "border-[var(--accent-primary)]" : "border-[rgba(94,234,212,0.5)] group-hover:border-[var(--accent-primary)]"
+                isPhotoActive ? "border-[var(--accent-primary)]" : "border-[var(--border-accent)] group-hover:border-[var(--accent-primary)]"
               }`}
             />
 
@@ -97,8 +97,8 @@ export default function Hero() {
             <div
               className={`absolute -bottom-2 font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full border backdrop-blur-md font-semibold transition-all duration-300 ${
                 isPhotoActive
-                  ? "bg-[rgba(10,14,20,0.95)] border-[var(--accent-primary)] text-[var(--accent-primary)]"
-                  : "bg-[rgba(10,14,20,0.85)] border-[rgba(94,234,212,0.4)] text-[var(--accent-primary)] group-hover:border-[var(--accent-primary)]"
+                  ? "bg-[var(--bg-elevated)] border-[var(--accent-primary)] text-[var(--accent-primary)]"
+                  : "bg-[var(--bg-secondary)] border-[var(--border-accent)] text-[var(--accent-primary)] group-hover:border-[var(--accent-primary)]"
               }`}
             >
               {isPhotoActive ? "// online" : "// hasbi.jpg"}
