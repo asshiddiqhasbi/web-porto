@@ -95,6 +95,12 @@ body {
   color: var(--accent-primary);
 }
 
+.hero-outline-text {
+  font-family: var(--font-display);
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent-primary);
+}
+
 html {
   scroll-behavior: smooth;
 }
