@@ -12,7 +12,7 @@ const { hero } = content;
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const fadeInUp = (delay: number) => ({
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 18 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.8, delay, ease },
 });
@@ -26,23 +26,23 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax shifts: outline text shifts faster than photo to amplify depth perception
-  const yOutlineText = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const yPhoto = useTransform(scrollYProgress, [0, 1], [0, 35]);
+  // Parallax shifts: outline text moves slightly faster than photo for organic depth
+  const yOutlineText = useTransform(scrollYProgress, [0, 1], [0, 75]);
+  const yPhoto = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-screen flex-col items-center justify-center pt-12 pb-10 sm:pt-16 sm:pb-12 px-4 sm:px-8 overflow-hidden select-none"
+      className="relative flex min-h-screen flex-col items-center justify-center pt-14 pb-10 sm:pt-20 sm:pb-14 px-4 sm:px-8 overflow-hidden select-none"
     >
       {/* LAYER 1 (Deepest): 3D Particle Network Canvas */}
       <ParticleNetwork />
 
-      {/* LAYER 2: Giant Outline Typography (Background Kinetic Layer) */}
+      {/* LAYER 2: Giant Background Outline Typography */}
       <motion.div
         style={{ y: yOutlineText }}
-        initial={{ opacity: 0, scale: 0.94 }}
-        animate={{ opacity: 0.28, scale: 1 }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 0.18, scale: 1 }}
         transition={{ duration: 1.2, delay: 0.05, ease }}
         className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden select-none"
         aria-hidden="true"
@@ -50,93 +50,73 @@ export default function Hero() {
         <span
           className="hero-outline-text font-display font-black uppercase tracking-tight whitespace-nowrap leading-none select-none"
           style={{
-            fontSize: "clamp(5rem, 21vw, 16rem)",
+            fontSize: "clamp(5rem, 20vw, 15rem)",
           }}
         >
           SHIDDIQ
         </span>
       </motion.div>
 
-      {/* FOREGROUND LAYERS (Layers 3 & 4) */}
-      <div className="relative z-10 flex w-full max-w-4xl flex-col items-center text-center">
-        {/* Eyebrow Label */}
+      {/* FOREGROUND LAYERS: Eyebrow -> Photo/Outline Composition -> Tagline -> CTAs */}
+      <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
+        {/* 1. Eyebrow Label */}
         <motion.p
           {...fadeInUp(0)}
-          className="eyebrow mb-2 sm:mb-4"
+          className="eyebrow mb-4 sm:mb-6"
         >
           $ {hero.subtitle.toLowerCase()}
         </motion.p>
 
-        {/* LAYER 3: Cutout Profile Photo (Layered visual centerpiece) */}
+        {/* 2. Cutout Profile Photo Composition */}
         <motion.div
           style={{ y: yPhoto }}
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
+          initial={{ opacity: 0, y: 15, scale: 0.92 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.15, ease }}
+          transition={{ duration: 0.9, delay: 0.12, ease }}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           onClick={() => setIsPhotoActive((prev) => !prev)}
           onHoverStart={() => setIsPhotoActive(true)}
           onHoverEnd={() => setIsPhotoActive(false)}
-          className="relative mb-3 sm:mb-4 cursor-pointer select-none group"
+          className="relative mb-5 sm:mb-7 cursor-pointer select-none group"
         >
-          <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 flex items-center justify-center">
-            {/* Soft ambient background glow tailored to cutout contour */}
-            <div
-              className={`absolute inset-2 rounded-full transition-all duration-500 blur-2xl pointer-events-none ${
-                isPhotoActive
-                  ? "opacity-70 bg-[var(--accent-primary)] scale-110"
-                  : "opacity-30 group-hover:opacity-60 bg-[var(--accent-primary)] group-hover:scale-105"
-              }`}
-            />
-
-            {/* Transparent Cutout Profile Image */}
+          <div
+            className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 flex items-center justify-center overflow-hidden"
+            style={{
+              WebkitMaskImage:
+                "linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%)",
+              maskImage:
+                "linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%)",
+            }}
+          >
             <Image
               src="/profile-cutout.png"
               alt="Hasbi As Shiddiq"
               fill
-              sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px"
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 200px, 240px"
               quality={95}
               className={`object-contain transition-all duration-500 ${
                 isPhotoActive
-                  ? "grayscale-0 contrast-105 brightness-105 drop-shadow-[0_12px_28px_var(--glow-shadow-intense)]"
-                  : "grayscale contrast-100 brightness-95 group-hover:grayscale-0 group-hover:contrast-105 group-hover:brightness-105 group-hover:drop-shadow-[0_12px_28px_var(--glow-shadow-intense)]"
+                  ? "grayscale-0 contrast-105 brightness-105"
+                  : "grayscale contrast-100 brightness-95 group-hover:grayscale-0 group-hover:contrast-105 group-hover:brightness-105"
               }`}
               priority
             />
           </div>
         </motion.div>
 
-        {/* LAYER 4: Foreground Text Content */}
-        {/* Main Name Heading */}
-        <motion.h1
-          {...fadeInUp(0.25)}
-          className="font-display mb-3 sm:mb-4 text-[clamp(2.2rem,5vw,4.2rem)] font-bold leading-[1.1] tracking-tight"
-          style={{ color: "var(--text-primary)" }}
-        >
-          {hero.name.split(" ").map((word, index, array) => (
-            <span key={index}>
-              {index === array.length - 1 ? (
-                <span style={{ color: "var(--accent-primary)" }}>{word}</span>
-              ) : (
-                <span>{word} </span>
-              )}
-            </span>
-          ))}
-        </motion.h1>
-
-        {/* Tagline */}
+        {/* 3. Tagline */}
         <motion.p
-          {...fadeInUp(0.3)}
-          className="font-body mb-5 sm:mb-7 max-w-xl text-sm sm:text-base md:text-lg leading-relaxed px-2"
+          {...fadeInUp(0.25)}
+          className="font-body mb-6 sm:mb-8 max-w-xl text-base sm:text-lg leading-relaxed px-2"
           style={{ color: "var(--text-secondary)" }}
         >
           {hero.tagline}
         </motion.p>
 
-        {/* Action Buttons */}
+        {/* 4. Action Buttons */}
         <motion.div
-          {...fadeInUp(0.45)}
+          {...fadeInUp(0.35)}
           className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-4 px-4 sm:px-0"
         >
           <Link
@@ -178,7 +158,7 @@ export default function Hero() {
       {/* Smooth gradient transition overlay from Hero to About */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent via-[var(--bg-primary)]/70 to-[var(--bg-primary)] pointer-events-none z-10" />
 
-      {/* Scroll indicator positioned safely */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
