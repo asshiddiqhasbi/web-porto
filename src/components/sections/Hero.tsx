@@ -25,6 +25,22 @@ export default function Hero() {
       {/* LAYER 1 (Deepest): 3D Particle Network Canvas */}
       <ParticleNetwork />
 
+      {/* LAYER 2: Static Giant Outline Typography (Subtle 3D Depth Layering) */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden select-none opacity-[0.06] dark:opacity-[0.09]"
+        aria-hidden="true"
+      >
+        <span
+          className="font-display font-black uppercase tracking-tighter whitespace-nowrap text-transparent"
+          style={{
+            fontSize: "clamp(5.5rem, 20vw, 16rem)",
+            WebkitTextStroke: "1.5px var(--text-primary)",
+          }}
+        >
+          HASBI SHIDDIQ
+        </span>
+      </div>
+
       {/* FOREGROUND CONTENT */}
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center text-center">
         {/* 1. Eyebrow Badge / Terminal Label */}

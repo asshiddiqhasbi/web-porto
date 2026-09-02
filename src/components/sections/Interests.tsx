@@ -53,10 +53,10 @@ export default function Interests() {
                 onClick={() => setActiveInterestIndex(prev => prev === index ? null : index)}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: index * 0.09, ease }}
-                className={`group relative flex flex-col justify-between rounded-xl p-5 -mx-5 border transition-all duration-300 cursor-pointer select-none ${
+                className={`group relative flex flex-col justify-between rounded-xl p-6 border transition-all duration-300 cursor-pointer select-none ${
                   isActive
                     ? "border-[var(--accent-primary)] bg-[var(--bg-secondary)]"
-                    : "border-transparent bg-transparent hover:border-[var(--border-accent)] hover:bg-[var(--bg-secondary)]"
+                    : "border-[var(--border-subtle)] bg-[var(--bg-secondary)]/50 hover:border-[var(--border-accent)] hover:bg-[var(--bg-secondary)]"
                 }`}
                 style={{
                   boxShadow: isActive ? "var(--card-shadow-active)" : undefined,

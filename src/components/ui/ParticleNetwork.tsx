@@ -107,7 +107,7 @@ function ParticleField() {
   });
 
   const { theme } = useTheme();
-  const activeColor = theme === "light" ? "#0F766E" : "#5EEAD4";
+  const activeColor = theme === "light" ? "#475569" : "#E2E8F0";
 
   return (
     <group ref={groupRef}>
