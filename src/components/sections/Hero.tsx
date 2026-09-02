@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { content } from "@/data/content";
 import ParticleNetwork from "@/components/ui/ParticleNetwork";
+import HangingLanyard from "@/components/ui/HangingLanyard";
 
 const { hero } = content;
 
@@ -24,6 +25,9 @@ export default function Hero() {
     <section className="relative flex min-h-screen flex-col items-center justify-center pt-20 pb-12 sm:pt-24 sm:pb-16 px-4 sm:px-8 overflow-hidden select-none">
       {/* LAYER 1 (Deepest): 3D Particle Network Canvas */}
       <ParticleNetwork />
+
+      {/* LAYER 1.5: Interactive Hanging Lanyard ID Card */}
+      <HangingLanyard />
 
       {/* LAYER 2: Static Giant Outline Typography (Subtle 3D Depth Layering) */}
       <div
