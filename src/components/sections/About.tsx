@@ -1,11 +1,35 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { content } from "@/data/content";
 
 const { about } = content;
 
 const ease = [0.16, 1, 0.3, 1] as const;
+
+const traits = [
+  {
+    title: "Problem Solver",
+    tagline: "Approaching engineering challenges with analytical depth and practical logic.",
+    icon: "🧩",
+  },
+  {
+    title: "Detail-Oriented",
+    tagline: "Obsessed with clean code architecture, type-safety, and visual UI precision.",
+    icon: "🔍",
+  },
+  {
+    title: "Continuous Learner",
+    tagline: "Constantly experimenting with AI models, modern web technologies, and system design.",
+    icon: "⚡",
+  },
+  {
+    title: "Curious Generalist",
+    tagline: "Bridging software engineering, AI capabilities, and scalable web architecture.",
+    icon: "🚀",
+  },
+];
 
 const fadeInUp = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -15,8 +39,14 @@ const fadeInUp = (delay: number) => ({
 });
 
 export default function About() {
+  const [traitIndex, setTraitIndex] = useState(0);
+
+  const nextTrait = () => {
+    setTraitIndex((prev) => (prev + 1) % traits.length);
+  };
+
   return (
-    <section id="about" className="flex flex-col items-center px-6 py-16 sm:py-24 sm:px-8">
+    <section id="about" className="flex flex-col items-center px-6 py-16 sm:py-24 sm:px-8 select-none">
       <div className="flex w-full max-w-[1100px] flex-col">
         {/* Eyebrow Header */}
         <motion.p
@@ -129,27 +159,66 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* 4. Methodology / Approach Bento Card (col-span-2) */}
+          {/* 4. Interactive Trait Deck Bento Card (col-span-2) */}
           <motion.div
             {...fadeInUp(0.48)}
-            className="md:col-span-1 lg:col-span-2 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-6 sm:p-8 shadow-[var(--card-shadow)] transition-all duration-300 hover:border-[var(--border-accent)]"
+            onClick={nextTrait}
+            whileTap={{ scale: 0.98 }}
+            className="md:col-span-1 lg:col-span-2 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-6 sm:p-8 shadow-[var(--card-shadow)] transition-all duration-300 hover:border-[var(--border-accent)] cursor-pointer group relative overflow-hidden"
           >
             <div>
               <div className="mb-4 flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
-                <span className="font-mono text-xs text-[var(--accent-primary)] uppercase tracking-wider">
-                  // METHODOLOGY
+                <span className="font-mono text-xs text-[var(--accent-primary)] uppercase tracking-wider flex items-center gap-2">
+                  <span>TRAIT DECK</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded border border-[var(--border-subtle)] text-[var(--text-tertiary)] group-hover:text-[var(--text-primary)] transition-colors">
+                    Click to cycle ↻
+                  </span>
                 </span>
                 <span className="font-mono text-[10px] text-[var(--text-tertiary)] uppercase tracking-wider">
-                  03
+                  0{traitIndex + 1} / 0{traits.length}
                 </span>
               </div>
-              <p className="font-body text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
-                Building robust applications with an emphasis on performance, maintainable system design, and clean visual typography. Driven by curiosity and continuous experimentation.
-              </p>
+
+              {/* Animated Trait Card Flip / Slide */}
+              <div className="relative min-h-[85px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={traitIndex}
+                    initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -12, scale: 0.96 }}
+                    transition={{ duration: 0.3, ease }}
+                    className="flex flex-col gap-1.5"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">{traits[traitIndex].icon}</span>
+                      <h4 className="font-display text-lg sm:text-xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
+                        {traits[traitIndex].title}
+                      </h4>
+                    </div>
+                    <p className="font-body text-xs sm:text-sm leading-relaxed text-[var(--text-secondary)]">
+                      {traits[traitIndex].tagline}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
-            <div className="mt-4 font-mono text-[11px] text-[var(--text-tertiary)] flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--text-tertiary)]" />
-              <span>Continuous Iteration & Execution</span>
+
+            {/* Bottom Progress Bar Indicator */}
+            <div className="mt-4 pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between font-mono text-[11px] text-[var(--text-tertiary)]">
+              <div className="flex gap-1.5">
+                {traits.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      idx === traitIndex
+                        ? "w-6 bg-[var(--text-primary)]"
+                        : "w-1.5 bg-[var(--border-subtle)]"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="group-hover:translate-x-1 transition-transform">Tap next →</span>
             </div>
           </motion.div>
         </div>
