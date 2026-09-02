@@ -73,7 +73,6 @@ export const metadata: Metadata = {
   },
 };
 
-import CustomCursor from "@/components/ui/CustomCursor";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -103,7 +102,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col relative">
         <ThemeProvider>
           <div className="page-vignette" aria-hidden="true" />
-          <CustomCursor />
           {children}
         </ThemeProvider>
       </body>

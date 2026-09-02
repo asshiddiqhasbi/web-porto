@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { content } from "@/data/content";
 import ParticleNetwork from "@/components/ui/ParticleNetwork";
 
@@ -19,45 +19,41 @@ const fadeInUp = (delay: number) => ({
 
 export default function Hero() {
   const [isPhotoActive, setIsPhotoActive] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Parallax shifts: outline text moves slightly faster than photo for organic depth
-  const yOutlineText = useTransform(scrollYProgress, [0, 1], [0, 75]);
-  const yPhoto = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative flex min-h-screen flex-col items-center justify-center pt-14 pb-10 sm:pt-20 sm:pb-14 px-4 sm:px-8 overflow-hidden select-none"
-    >
+    <section className="relative flex min-h-screen flex-col items-center justify-center pt-14 pb-10 sm:pt-20 sm:pb-14 px-4 sm:px-8 overflow-hidden select-none">
       {/* LAYER 1 (Deepest): 3D Particle Network Canvas */}
       <ParticleNetwork />
 
-      {/* LAYER 2: Giant Background Outline Typography */}
+      {/* LAYER 2: Continuous Infinite Kinetic Typography Marquee */}
       <motion.div
-        style={{ y: yOutlineText }}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 0.18, scale: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.28 }}
         transition={{ duration: 1.2, delay: 0.05, ease }}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden select-none"
+        className="hero-marquee-container"
         aria-hidden="true"
       >
-        <span
-          className="hero-outline-text font-display font-black uppercase tracking-tight whitespace-nowrap leading-none select-none"
-          style={{
-            fontSize: "clamp(5rem, 20vw, 15rem)",
-          }}
-        >
-          SHIDDIQ
-        </span>
+        <div className="hero-marquee-track">
+          <span
+            className="hero-outline-text font-display font-black uppercase tracking-tight pr-12 select-none"
+            style={{
+              fontSize: "clamp(4.5rem, 16vw, 12rem)",
+            }}
+          >
+            HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp;
+          </span>
+          <span
+            className="hero-outline-text font-display font-black uppercase tracking-tight pr-12 select-none"
+            style={{
+              fontSize: "clamp(4.5rem, 16vw, 12rem)",
+            }}
+          >
+            HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp;
+          </span>
+        </div>
       </motion.div>
 
-      {/* FOREGROUND LAYERS: Eyebrow -> Photo/Outline Composition -> Tagline -> CTAs */}
+      {/* FOREGROUND CONTENT */}
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
         {/* 1. Eyebrow Label */}
         <motion.p
@@ -67,33 +63,30 @@ export default function Hero() {
           $ {hero.subtitle.toLowerCase()}
         </motion.p>
 
-        {/* 2. Cutout Profile Photo Composition */}
+        {/* 2. Cutout Profile Photo Composition (Centered over Marquee) */}
         <motion.div
-          style={{ y: yPhoto }}
-          initial={{ opacity: 0, y: 15, scale: 0.92 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.12, ease }}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
+          {...fadeInUp(0.12)}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           onClick={() => setIsPhotoActive((prev) => !prev)}
           onHoverStart={() => setIsPhotoActive(true)}
           onHoverEnd={() => setIsPhotoActive(false)}
           className="relative mb-5 sm:mb-7 cursor-pointer select-none group"
         >
           <div
-            className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 flex items-center justify-center overflow-hidden"
+            className="relative w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60 lg:w-64 lg:h-64 flex items-center justify-center overflow-hidden"
             style={{
               WebkitMaskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%)",
+                "linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 98%)",
               maskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%)",
+                "linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 98%)",
             }}
           >
             <Image
               src="/profile-cutout.png"
               alt="Hasbi As Shiddiq"
               fill
-              sizes="(max-width: 640px) 160px, (max-width: 1024px) 200px, 240px"
+              sizes="(max-width: 640px) 180px, (max-width: 1024px) 250px, 300px"
               quality={95}
               className={`object-contain transition-all duration-500 ${
                 isPhotoActive
