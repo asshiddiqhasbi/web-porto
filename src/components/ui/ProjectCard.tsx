@@ -116,8 +116,8 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
         }}
       >
         <div>
-          {/* Top Screenshot / Image (if available) */}
-          {project.image && (
+          {/* Top Screenshot / Image or Abstract Cover Placeholder */}
+          {project.image ? (
             <div className="relative mb-5 w-full aspect-[16/9] overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] group/img">
               <Image
                 src={project.image}
@@ -128,6 +128,21 @@ export default function ProjectCard({ project, index = 0, isActive = false, onTo
                 className="object-cover object-top transition-transform duration-500 ease-out group-hover/img:scale-105 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)]/30 via-transparent to-transparent pointer-events-none" />
+            </div>
+          ) : (
+            <div className="relative mb-5 w-full aspect-[16/9] overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] flex items-center justify-center p-4 group/placeholder">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--glow-shadow)_0%,transparent_70%)] opacity-40 group-hover/placeholder:opacity-70 transition-opacity duration-500" />
+              <div className="flex flex-col items-center gap-2 text-center z-10">
+                <div className="h-10 w-10 rounded-xl border border-[var(--border-accent)] bg-[var(--bg-secondary)]/80 flex items-center justify-center text-[var(--accent-primary)] shadow-sm">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-tertiary)]">
+                  CONCEPT // {project.title.toUpperCase()}
+                </span>
+              </div>
             </div>
           )}
 

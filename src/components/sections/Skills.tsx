@@ -15,24 +15,6 @@ const fadeInUp = (delay: number) => ({
   transition: { duration: 0.8, delay, ease },
 });
 
-// Relative proficiency level mapping based on experience and context clues in description
-const getProficiency = (skillName: string): number => {
-  const name = skillName.toLowerCase();
-  if (name.includes("javascript")) return 92;
-  if (name.includes("html") || name.includes("css")) return 94;
-  if (name.includes("vs code")) return 95;
-  if (name.includes("git")) return 88;
-  if (name.includes("laravel")) return 88;
-  if (name.includes("mysql")) return 86;
-  if (name.includes("php")) return 85;
-  if (name.includes("react")) return 84;
-  if (name.includes("java")) return 82;
-  if (name.includes("python")) return 80;
-  if (name.includes("sql server")) return 76;
-  if (name.includes("figma")) return 75;
-  return 80;
-};
-
 export default function Skills() {
   const [activeSkillName, setActiveSkillName] = useState<string | null>(null);
 
@@ -50,8 +32,7 @@ export default function Skills() {
         {/* Main Section Heading */}
         <motion.h2
           {...fadeInUp(0.1)}
-          className="font-display mb-10 sm:mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
-          style={{ color: "var(--text-primary)" }}
+          className="font-display mb-10 sm:mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-[var(--text-primary)]"
         >
           Skills & Tools
         </motion.h2>
@@ -65,29 +46,15 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: categoryIndex * 0.12, ease }}
-              className="flex flex-col rounded-xl sm:rounded-[14px] border p-6 sm:p-7 transition-colors duration-300 hover:border-[var(--accent-primary)]"
-              style={{
-                backgroundColor: "var(--bg-secondary)",
-                borderColor: "var(--border-subtle)",
-                boxShadow: "var(--card-shadow)",
-              }}
+              className="flex flex-col rounded-xl sm:rounded-[14px] border p-6 sm:p-7 transition-colors duration-300 hover:border-[var(--accent-primary)] bg-[var(--bg-secondary)] border-[var(--border-subtle)] shadow-[var(--card-shadow)]"
             >
               {/* Category Module Header */}
-              <div
-                className="mb-6 flex items-center justify-between border-b pb-4"
-                style={{ borderColor: "var(--border-subtle)" }}
-              >
+              <div className="mb-6 flex items-center justify-between border-b pb-4 border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2">
-                  <span
-                    className="font-mono text-xs"
-                    style={{ color: "var(--accent-primary)" }}
-                  >
+                  <span className="font-mono text-xs text-[var(--accent-primary)]">
                     //
                   </span>
-                  <h3
-                    className="font-mono text-xs uppercase tracking-wider font-semibold"
-                    style={{ color: "var(--accent-primary)" }}
-                  >
+                  <h3 className="font-mono text-xs uppercase tracking-wider font-semibold text-[var(--accent-primary)]">
                     {category.category}{" "}
                     <span className="opacity-60">
                       [{category.items.length}]
@@ -95,16 +62,15 @@ export default function Skills() {
                   </h3>
                 </div>
 
-                <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider opacity-70" style={{ color: "var(--text-tertiary)" }}>
+                <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider opacity-70 text-[var(--text-tertiary)]">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
                   <span>ACTIVE</span>
                 </div>
               </div>
 
-              {/* Skill Rows */}
-              <div className="flex flex-col gap-3">
+              {/* Skill Cards */}
+              <div className="grid grid-cols-1 gap-3">
                 {category.items.map((skill, skillIndex) => {
-                  const proficiency = getProficiency(skill.name);
                   const isActive = activeSkillName === skill.name;
 
                   return (
@@ -120,62 +86,31 @@ export default function Skills() {
                         delay: categoryIndex * 0.12 + 0.1 + skillIndex * 0.05,
                         ease,
                       }}
-                      className={`group relative flex flex-col rounded-lg p-3 transition-all duration-200 cursor-pointer select-none border-l-2 ${
+                      className={`group relative flex flex-col rounded-lg p-4 transition-all duration-200 cursor-pointer select-none border border-[var(--border-subtle)] ${
                         isActive
-                          ? "border-[var(--accent-primary)] bg-[var(--bg-elevated)]"
-                          : "border-transparent hover:border-[var(--accent-primary)] hover:bg-[var(--bg-elevated)]"
+                          ? "border-[var(--accent-primary)] bg-[var(--bg-elevated)] shadow-sm"
+                          : "bg-[var(--bg-primary)]/40 hover:border-[var(--border-accent)] hover:bg-[var(--bg-elevated)]"
                       }`}
                     >
-                      {/* Name & Percentage / Score label */}
-                      <div className="flex items-center justify-between mb-1">
+                      {/* Name & Tech Tag Accent */}
+                      <div className="flex items-center justify-between mb-1.5">
                         <span
-                          className={`font-display font-semibold text-sm sm:text-base transition-colors duration-200 ${
-                            isActive ? "text-[var(--accent-primary)]" : "group-hover:text-[var(--accent-primary)]"
+                          className={`font-display font-bold text-sm sm:text-base transition-colors duration-200 ${
+                            isActive ? "text-[var(--accent-primary)]" : "group-hover:text-[var(--accent-primary)] text-[var(--text-primary)]"
                           }`}
-                          style={{ color: isActive ? "var(--accent-primary)" : "var(--text-primary)" }}
                         >
                           {skill.name}
                         </span>
 
-                        <span
-                          className={`font-mono text-[10px] sm:text-xs transition-opacity ${
-                            isActive ? "opacity-100 text-[var(--accent-primary)]" : "opacity-40 group-hover:opacity-100"
-                          }`}
-                          style={{ color: isActive ? "var(--accent-primary)" : "var(--text-secondary)" }}
-                        >
-                          {proficiency}%
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-tertiary)] opacity-60 group-hover:opacity-100 transition-opacity">
+                          stack
                         </span>
                       </div>
 
                       {/* Description */}
-                      <p
-                        className="font-body text-xs sm:text-sm leading-relaxed mb-3"
-                        style={{ color: "var(--text-secondary)" }}
-                      >
+                      <p className="font-body text-xs sm:text-sm leading-relaxed text-[var(--text-secondary)]">
                         {skill.description}
                       </p>
-
-                      {/* Visual Proficiency Indicator Bar */}
-                      <div
-                        className="w-full h-1 rounded-full overflow-hidden"
-                        style={{ backgroundColor: "rgba(31, 41, 55, 0.7)" }}
-                      >
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${proficiency}%` }}
-                          viewport={{ once: true }}
-                          transition={{
-                            duration: 0.9,
-                            delay: categoryIndex * 0.12 + 0.15 + skillIndex * 0.05,
-                            ease,
-                          }}
-                          className="h-full rounded-full transition-colors duration-300"
-                          style={{
-                            background:
-                              "linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%)",
-                          }}
-                        />
-                      </div>
                     </motion.div>
                   );
                 })}

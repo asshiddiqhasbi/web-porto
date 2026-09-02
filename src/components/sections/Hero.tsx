@@ -21,72 +21,59 @@ export default function Hero() {
   const [isPhotoActive, setIsPhotoActive] = useState(false);
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center pt-14 pb-10 sm:pt-20 sm:pb-14 px-4 sm:px-8 overflow-hidden select-none">
+    <section className="relative flex min-h-screen flex-col items-center justify-center pt-20 pb-12 sm:pt-24 sm:pb-16 px-4 sm:px-8 overflow-hidden select-none">
       {/* LAYER 1 (Deepest): 3D Particle Network Canvas */}
       <ParticleNetwork />
 
-      {/* LAYER 2: Continuous Infinite Kinetic Typography Marquee */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.28 }}
-        transition={{ duration: 1.2, delay: 0.05, ease }}
-        className="hero-marquee-container"
-        aria-hidden="true"
-      >
-        <div className="hero-marquee-track">
-          <span
-            className="hero-outline-text font-display font-black uppercase tracking-tight pr-12 select-none"
-            style={{
-              fontSize: "clamp(4.5rem, 16vw, 12rem)",
-            }}
-          >
-            HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp;
-          </span>
-          <span
-            className="hero-outline-text font-display font-black uppercase tracking-tight pr-12 select-none"
-            style={{
-              fontSize: "clamp(4.5rem, 16vw, 12rem)",
-            }}
-          >
-            HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp; HASBI SHIDDIQ &nbsp;&middot;&nbsp;
-          </span>
-        </div>
-      </motion.div>
-
       {/* FOREGROUND CONTENT */}
-      <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
-        {/* 1. Eyebrow Label */}
-        <motion.p
-          {...fadeInUp(0)}
-          className="eyebrow mb-4 sm:mb-6"
-        >
-          $ {hero.subtitle.toLowerCase()}
-        </motion.p>
-
-        {/* 2. Cutout Profile Photo Composition (Centered over Marquee) */}
+      <div className="relative z-10 flex w-full max-w-4xl flex-col items-center text-center">
+        {/* 1. Eyebrow Badge / Terminal Label */}
         <motion.div
-          {...fadeInUp(0.12)}
+          {...fadeInUp(0)}
+          className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border-accent)] bg-[var(--bg-secondary)]/80 px-4 py-1.5 backdrop-blur-md"
+        >
+          <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
+          <span className="eyebrow font-mono text-xs sm:text-sm tracking-wide">
+            $ {hero.subtitle.toLowerCase()}
+          </span>
+        </motion.div>
+
+        {/* 2. Main Prominent H1 Title */}
+        <motion.h1
+          {...fadeInUp(0.1)}
+          className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 sm:mb-8"
+        >
+          <span className="gradient-text">{hero.name}</span>
+        </motion.h1>
+
+        {/* 3. Cutout Profile Photo Composition with Ambient Glow Ring */}
+        <motion.div
+          {...fadeInUp(0.18)}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => setIsPhotoActive((prev) => !prev)}
           onHoverStart={() => setIsPhotoActive(true)}
           onHoverEnd={() => setIsPhotoActive(false)}
-          className="relative mb-5 sm:mb-7 cursor-pointer select-none group"
+          className="relative mb-6 sm:mb-8 cursor-pointer select-none group"
         >
+          {/* Ambient Glow Backdrop Ring */}
+          <div className="absolute inset-0 rounded-full bg-[var(--accent-primary)]/15 blur-2xl transition-opacity duration-500 group-hover:opacity-100 opacity-60 pointer-events-none" />
+
+          {/* Cutout Photo Mask Container */}
           <div
-            className="relative w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60 lg:w-64 lg:h-64 flex items-center justify-center overflow-hidden"
+            className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 flex items-center justify-center overflow-hidden rounded-b-full border-b border-[var(--border-accent)]/50"
             style={{
               WebkitMaskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 98%)",
+                "linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%)",
               maskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 98%)",
+                "linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%)",
             }}
           >
             <Image
               src="/profile-cutout.png"
               alt="Hasbi As Shiddiq"
               fill
-              sizes="(max-width: 640px) 180px, (max-width: 1024px) 250px, 300px"
+              sizes="(max-width: 640px) 180px, (max-width: 1024px) 260px, 300px"
               quality={95}
               className={`object-contain transition-all duration-500 ${
                 isPhotoActive
@@ -98,50 +85,40 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* 3. Tagline */}
+        {/* 4. Tagline */}
         <motion.p
           {...fadeInUp(0.25)}
-          className="font-body mb-6 sm:mb-8 max-w-xl text-base sm:text-lg leading-relaxed px-2"
-          style={{ color: "var(--text-secondary)" }}
+          className="font-body mb-8 sm:mb-10 max-w-2xl text-base sm:text-xl leading-relaxed text-[var(--text-secondary)] px-2"
         >
           {hero.tagline}
         </motion.p>
 
-        {/* 4. Action Buttons */}
+        {/* 5. Action Buttons */}
         <motion.div
           {...fadeInUp(0.35)}
-          className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-4 px-4 sm:px-0"
+          className="flex w-full flex-col gap-3.5 sm:w-auto sm:flex-row sm:gap-5 px-4 sm:px-0"
         >
           <Link
             href="#projects"
-            className="inline-flex items-center justify-center rounded-lg px-7 py-3 text-sm font-medium transition-all hover:scale-105 active:scale-95 active:opacity-90"
+            className="inline-flex items-center justify-center rounded-xl px-8 py-3.5 text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 active:opacity-90 shadow-lg"
             style={{
               backgroundColor: "var(--accent-primary)",
               color: "var(--bg-primary)",
+              boxShadow: "0 4px 20px var(--glow-shadow)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 20px rgba(94, 234, 212, 0.4)";
+              e.currentTarget.style.boxShadow = "0 0 25px var(--glow-shadow-intense)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "none";
+              e.currentTarget.style.boxShadow = "0 4px 20px var(--glow-shadow)";
             }}
           >
             {hero.ctaProjects}
           </Link>
+
           <Link
             href="#contact"
-            className="inline-flex items-center justify-center rounded-lg border px-7 py-3 text-sm font-medium transition-all hover:scale-105 active:scale-95 active:border-[var(--accent-primary)] active:bg-[var(--bg-elevated)]"
-            style={{
-              backgroundColor: "transparent",
-              borderColor: "var(--border-subtle)",
-              color: "var(--text-primary)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--accent-primary)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "var(--border-subtle)";
-            }}
+            className="inline-flex items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-8 py-3.5 text-sm font-semibold text-[var(--text-primary)] transition-all duration-300 hover:border-[var(--accent-primary)] hover:bg-[var(--bg-elevated)] hover:scale-105 active:scale-95"
           >
             {hero.ctaContact}
           </Link>
